@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tanstack-start-demo",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2025-04-14",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "EXAMPLE": "example"
+  },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "86b3f07979de4aaea242139fa105d9c6",
+      "localConnectionString": "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+    }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./.output/public/"
+  },
+  "compatibility_flags": ["nodejs_compat", "no_nodejs_compat_v2"]
+}
