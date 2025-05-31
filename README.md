@@ -1,6 +1,6 @@
-# Welcome to TanStack.com!
+# Welcome to Melbourne Tech Web App Boilerplate!
 
-This site is built with TanStack Router!
+This app is built with TanStack Start and provides a modern, type-safe full-stack React boilerplate.
 
 - [TanStack Router Docs](https://tanstack.com/router)
 
@@ -18,6 +18,19 @@ pnpm dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
+
+## About This Boilerplate
+
+The Melbourne Tech Web App Boilerplate provides a comprehensive foundation for building modern web applications with:
+
+- **TanStack Start** - Full-stack React framework
+- **TanStack Router** - Type-safe routing
+- **TanStack Query** - Server state management
+- **Supabase** - Backend as a Service
+- **Tailwind CSS** - Utility-first CSS framework
+- **TypeScript** - Type safety throughout
+
+This boilerplate demonstrates best practices for authentication, database integration, and modern React development patterns.
 
 ## Editing and previewing the docs of TanStack projects locally
 

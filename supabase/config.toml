@@ -1,4 +1,4 @@
-project_id = "tanstack-start-demo"
+project_id = "melbourne-tech-web-app-boilerplate"
 
 [api]
 enabled = true

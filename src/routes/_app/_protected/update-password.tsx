@@ -1,7 +1,7 @@
 import { UpdatePasswordForm } from '~/components/update-password-form'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/update-password')({
+export const Route = createFileRoute('/_app/_protected/update-password')({
   component: UpdatePassword,
 })
 

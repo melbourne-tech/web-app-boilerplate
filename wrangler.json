@@ -1,13 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tanstack-start-demo",
+  "name": "melbourne-tech-web-app-boilerplate",
   "main": "./.output/server/index.mjs",
   "compatibility_date": "2025-04-14",
   "observability": {
     "enabled": true
   },
   "vars": {
-    "EXAMPLE": "example"
+    "VITE_SUPABASE_URL": "https://hzhiqxzrueyjeihflgfd.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6aGlxeHpydWV5amVpaGZsZ2ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk0OTc2MTEsImV4cCI6MjAzNTA3MzYxMX0.6FAn3R_A5UTwaxR3ZriZKn75f6hyV0ddTRAhWSPBndM"
   },
   "hyperdrive": [
     {

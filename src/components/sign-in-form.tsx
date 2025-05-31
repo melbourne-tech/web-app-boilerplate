@@ -1,4 +1,7 @@
 import { Link, useNavigate } from '@tanstack/react-router'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { useState } from 'react'
 import { Button } from '~/components/ui/button'
 import {
@@ -8,59 +11,59 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
 import { useSupabaseBrowserClient } from '~/lib/app-context'
 import { cn } from '~/lib/utils'
+import { SocialAuthButton } from '~/components/social-auth-button'
+
+const signInSchema = z.object({
+  email: z.string().email({
+    message: 'Please enter a valid email address.',
+  }),
+  password: z.string().min(1, {
+    message: 'Password is required.',
+  }),
+})
 
 export function SignInForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-
   const supabase = useSupabaseBrowserClient()
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     setIsLoading(true)
     setError(null)
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: values.email,
+        password: values.password,
       })
       if (error) throw error
-      // Update this route to redirect to an authenticated route. The user already has an active session.
       await navigate({ to: '/protected' })
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleSocialLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'github',
-        options: {
-          redirectTo: `${window.location.origin}/auth/oauth?next=/protected`,
-        },
-      })
-
-      if (error) throw error
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
       setIsLoading(false)
     }
   }
@@ -77,16 +80,7 @@ export function SignInForm({
         <CardContent>
           <div className="flex flex-col gap-6">
             {/* Social Login */}
-            <form onSubmit={handleSocialLogin}>
-              <Button
-                type="submit"
-                variant="outline"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Logging in...' : 'Continue with Github'}
-              </Button>
-            </form>
+            <SocialAuthButton redirectPath="/protected" onError={setError} />
 
             {/* Divider */}
             <div className="relative">
@@ -101,43 +95,55 @@ export function SignInForm({
             </div>
 
             {/* Email/Password Login */}
-            <form onSubmit={handleLogin}>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    <Link
-                      to="/forgot-password"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div>
-                  <Input
-                    id="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="m@example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center">
+                        <FormLabel>Password</FormLabel>
+                        <Link
+                          to="/forgot-password"
+                          className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot your password?
+                        </Link>
+                      </div>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? 'Logging in...' : 'Login'}
                 </Button>
-              </div>
-            </form>
+              </form>
+            </Form>
 
             <div className="text-center text-sm">
               Don&apos;t have an account?{' '}

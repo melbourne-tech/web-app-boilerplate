@@ -29,8 +29,8 @@ export const Route = createRootRouteWithContext<{
       },
       ...seo({
         title:
-          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
-        description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+          'Melbourne Tech Web App Boilerplate | Modern Full-Stack React App',
+        description: `Melbourne Tech Web App Boilerplate - A modern, type-safe full-stack React framework built with TanStack Start, Supabase, and best practices.`,
       }),
     ],
     links: [
@@ -72,6 +72,7 @@ export const Route = createRootRouteWithContext<{
       session,
     }
   },
+  staleTime: 60 * 1000, // 1 minute
 })
 
 function RootComponent() {

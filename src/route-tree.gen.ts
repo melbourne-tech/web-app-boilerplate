@@ -11,293 +11,320 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as UpdatePasswordImport } from './routes/update-password'
-import { Route as SignUpSuccessImport } from './routes/sign-up-success'
-import { Route as SignUpImport } from './routes/sign-up'
-import { Route as SignInImport } from './routes/sign-in'
-import { Route as ForgotPasswordImport } from './routes/forgot-password'
-import { Route as AboutImport } from './routes/about'
-import { Route as ProtectedImport } from './routes/_protected'
-import { Route as IndexImport } from './routes/index'
-import { Route as AuthErrorImport } from './routes/auth/error'
-import { Route as AuthConfirmImport } from './routes/auth/confirm'
-import { Route as ProtectedProtectedImport } from './routes/_protected/protected'
+import { Route as AppImport } from './routes/_app'
+import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AppSignUpImport } from './routes/_app/sign-up'
+import { Route as AppSignInImport } from './routes/_app/sign-in'
+import { Route as AppForgotPasswordImport } from './routes/_app/forgot-password'
+import { Route as AppAboutImport } from './routes/_app/about'
+import { Route as AppProtectedImport } from './routes/_app/_protected'
+import { Route as AppAuthSuccessImport } from './routes/_app/auth/success'
+import { Route as AppAuthErrorImport } from './routes/_app/auth/error'
+import { Route as AppProtectedUpdatePasswordImport } from './routes/_app/_protected/update-password'
+import { Route as AppProtectedProtectedImport } from './routes/_app/_protected/protected'
+import { Route as AppProtectedAccountImport } from './routes/_app/_protected/account'
 
 // Create/Update Routes
 
-const UpdatePasswordRoute = UpdatePasswordImport.update({
-  id: '/update-password',
-  path: '/update-password',
+const AppRoute = AppImport.update({
+  id: '/_app',
   getParentRoute: () => rootRoute,
 } as any)
 
-const SignUpSuccessRoute = SignUpSuccessImport.update({
-  id: '/sign-up-success',
-  path: '/sign-up-success',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SignUpRoute = SignUpImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const SignInRoute = SignInImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ForgotPasswordRoute = ForgotPasswordImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ProtectedRoute = ProtectedImport.update({
-  id: '/_protected',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexRoute = IndexImport.update({
+const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AppRoute,
 } as any)
 
-const AuthErrorRoute = AuthErrorImport.update({
+const AppSignUpRoute = AppSignUpImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppSignInRoute = AppSignInImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppForgotPasswordRoute = AppForgotPasswordImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAboutRoute = AppAboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppProtectedRoute = AppProtectedImport.update({
+  id: '/_protected',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAuthSuccessRoute = AppAuthSuccessImport.update({
+  id: '/auth/success',
+  path: '/auth/success',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAuthErrorRoute = AppAuthErrorImport.update({
   id: '/auth/error',
   path: '/auth/error',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AppRoute,
 } as any)
 
-const AuthConfirmRoute = AuthConfirmImport.update({
-  id: '/auth/confirm',
-  path: '/auth/confirm',
-  getParentRoute: () => rootRoute,
-} as any)
+const AppProtectedUpdatePasswordRoute = AppProtectedUpdatePasswordImport.update(
+  {
+    id: '/update-password',
+    path: '/update-password',
+    getParentRoute: () => AppProtectedRoute,
+  } as any,
+)
 
-const ProtectedProtectedRoute = ProtectedProtectedImport.update({
+const AppProtectedProtectedRoute = AppProtectedProtectedImport.update({
   id: '/protected',
   path: '/protected',
-  getParentRoute: () => ProtectedRoute,
+  getParentRoute: () => AppProtectedRoute,
+} as any)
+
+const AppProtectedAccountRoute = AppProtectedAccountImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AppProtectedRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/_protected': {
-      id: '/_protected'
+    '/_app': {
+      id: '/_app'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof ProtectedImport
+      preLoaderRoute: typeof AppImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
+    '/_app/_protected': {
+      id: '/_app/_protected'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppProtectedImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/about': {
+      id: '/_app/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppAboutImport
+      parentRoute: typeof AppImport
     }
-    '/forgot-password': {
-      id: '/forgot-password'
+    '/_app/forgot-password': {
+      id: '/_app/forgot-password'
       path: '/forgot-password'
       fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppForgotPasswordImport
+      parentRoute: typeof AppImport
     }
-    '/sign-in': {
-      id: '/sign-in'
+    '/_app/sign-in': {
+      id: '/_app/sign-in'
       path: '/sign-in'
       fullPath: '/sign-in'
-      preLoaderRoute: typeof SignInImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppSignInImport
+      parentRoute: typeof AppImport
     }
-    '/sign-up': {
-      id: '/sign-up'
+    '/_app/sign-up': {
+      id: '/_app/sign-up'
       path: '/sign-up'
       fullPath: '/sign-up'
-      preLoaderRoute: typeof SignUpImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppSignUpImport
+      parentRoute: typeof AppImport
     }
-    '/sign-up-success': {
-      id: '/sign-up-success'
-      path: '/sign-up-success'
-      fullPath: '/sign-up-success'
-      preLoaderRoute: typeof SignUpSuccessImport
-      parentRoute: typeof rootRoute
+    '/_app/': {
+      id: '/_app/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AppIndexImport
+      parentRoute: typeof AppImport
     }
-    '/update-password': {
-      id: '/update-password'
-      path: '/update-password'
-      fullPath: '/update-password'
-      preLoaderRoute: typeof UpdatePasswordImport
-      parentRoute: typeof rootRoute
+    '/_app/_protected/account': {
+      id: '/_app/_protected/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AppProtectedAccountImport
+      parentRoute: typeof AppProtectedImport
     }
-    '/_protected/protected': {
-      id: '/_protected/protected'
+    '/_app/_protected/protected': {
+      id: '/_app/_protected/protected'
       path: '/protected'
       fullPath: '/protected'
-      preLoaderRoute: typeof ProtectedProtectedImport
-      parentRoute: typeof ProtectedImport
+      preLoaderRoute: typeof AppProtectedProtectedImport
+      parentRoute: typeof AppProtectedImport
     }
-    '/auth/confirm': {
-      id: '/auth/confirm'
-      path: '/auth/confirm'
-      fullPath: '/auth/confirm'
-      preLoaderRoute: typeof AuthConfirmImport
-      parentRoute: typeof rootRoute
+    '/_app/_protected/update-password': {
+      id: '/_app/_protected/update-password'
+      path: '/update-password'
+      fullPath: '/update-password'
+      preLoaderRoute: typeof AppProtectedUpdatePasswordImport
+      parentRoute: typeof AppProtectedImport
     }
-    '/auth/error': {
-      id: '/auth/error'
+    '/_app/auth/error': {
+      id: '/_app/auth/error'
       path: '/auth/error'
       fullPath: '/auth/error'
-      preLoaderRoute: typeof AuthErrorImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppAuthErrorImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/auth/success': {
+      id: '/_app/auth/success'
+      path: '/auth/success'
+      fullPath: '/auth/success'
+      preLoaderRoute: typeof AppAuthSuccessImport
+      parentRoute: typeof AppImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface ProtectedRouteChildren {
-  ProtectedProtectedRoute: typeof ProtectedProtectedRoute
+interface AppProtectedRouteChildren {
+  AppProtectedAccountRoute: typeof AppProtectedAccountRoute
+  AppProtectedProtectedRoute: typeof AppProtectedProtectedRoute
+  AppProtectedUpdatePasswordRoute: typeof AppProtectedUpdatePasswordRoute
 }
 
-const ProtectedRouteChildren: ProtectedRouteChildren = {
-  ProtectedProtectedRoute: ProtectedProtectedRoute,
+const AppProtectedRouteChildren: AppProtectedRouteChildren = {
+  AppProtectedAccountRoute: AppProtectedAccountRoute,
+  AppProtectedProtectedRoute: AppProtectedProtectedRoute,
+  AppProtectedUpdatePasswordRoute: AppProtectedUpdatePasswordRoute,
 }
 
-const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
-  ProtectedRouteChildren,
+const AppProtectedRouteWithChildren = AppProtectedRoute._addFileChildren(
+  AppProtectedRouteChildren,
 )
 
+interface AppRouteChildren {
+  AppProtectedRoute: typeof AppProtectedRouteWithChildren
+  AppAboutRoute: typeof AppAboutRoute
+  AppForgotPasswordRoute: typeof AppForgotPasswordRoute
+  AppSignInRoute: typeof AppSignInRoute
+  AppSignUpRoute: typeof AppSignUpRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppAuthErrorRoute: typeof AppAuthErrorRoute
+  AppAuthSuccessRoute: typeof AppAuthSuccessRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppProtectedRoute: AppProtectedRouteWithChildren,
+  AppAboutRoute: AppAboutRoute,
+  AppForgotPasswordRoute: AppForgotPasswordRoute,
+  AppSignInRoute: AppSignInRoute,
+  AppSignUpRoute: AppSignUpRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppAuthErrorRoute: AppAuthErrorRoute,
+  AppAuthSuccessRoute: AppAuthSuccessRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof ProtectedRouteWithChildren
-  '/about': typeof AboutRoute
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/sign-up-success': typeof SignUpSuccessRoute
-  '/update-password': typeof UpdatePasswordRoute
-  '/protected': typeof ProtectedProtectedRoute
-  '/auth/confirm': typeof AuthConfirmRoute
-  '/auth/error': typeof AuthErrorRoute
+  '': typeof AppProtectedRouteWithChildren
+  '/about': typeof AppAboutRoute
+  '/forgot-password': typeof AppForgotPasswordRoute
+  '/sign-in': typeof AppSignInRoute
+  '/sign-up': typeof AppSignUpRoute
+  '/': typeof AppIndexRoute
+  '/account': typeof AppProtectedAccountRoute
+  '/protected': typeof AppProtectedProtectedRoute
+  '/update-password': typeof AppProtectedUpdatePasswordRoute
+  '/auth/error': typeof AppAuthErrorRoute
+  '/auth/success': typeof AppAuthSuccessRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof ProtectedRouteWithChildren
-  '/about': typeof AboutRoute
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/sign-up-success': typeof SignUpSuccessRoute
-  '/update-password': typeof UpdatePasswordRoute
-  '/protected': typeof ProtectedProtectedRoute
-  '/auth/confirm': typeof AuthConfirmRoute
-  '/auth/error': typeof AuthErrorRoute
+  '': typeof AppProtectedRouteWithChildren
+  '/about': typeof AppAboutRoute
+  '/forgot-password': typeof AppForgotPasswordRoute
+  '/sign-in': typeof AppSignInRoute
+  '/sign-up': typeof AppSignUpRoute
+  '/': typeof AppIndexRoute
+  '/account': typeof AppProtectedAccountRoute
+  '/protected': typeof AppProtectedProtectedRoute
+  '/update-password': typeof AppProtectedUpdatePasswordRoute
+  '/auth/error': typeof AppAuthErrorRoute
+  '/auth/success': typeof AppAuthSuccessRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/_protected': typeof ProtectedRouteWithChildren
-  '/about': typeof AboutRoute
-  '/forgot-password': typeof ForgotPasswordRoute
-  '/sign-in': typeof SignInRoute
-  '/sign-up': typeof SignUpRoute
-  '/sign-up-success': typeof SignUpSuccessRoute
-  '/update-password': typeof UpdatePasswordRoute
-  '/_protected/protected': typeof ProtectedProtectedRoute
-  '/auth/confirm': typeof AuthConfirmRoute
-  '/auth/error': typeof AuthErrorRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/_protected': typeof AppProtectedRouteWithChildren
+  '/_app/about': typeof AppAboutRoute
+  '/_app/forgot-password': typeof AppForgotPasswordRoute
+  '/_app/sign-in': typeof AppSignInRoute
+  '/_app/sign-up': typeof AppSignUpRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/_protected/account': typeof AppProtectedAccountRoute
+  '/_app/_protected/protected': typeof AppProtectedProtectedRoute
+  '/_app/_protected/update-password': typeof AppProtectedUpdatePasswordRoute
+  '/_app/auth/error': typeof AppAuthErrorRoute
+  '/_app/auth/success': typeof AppAuthSuccessRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | ''
     | '/about'
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
-    | '/sign-up-success'
-    | '/update-password'
+    | '/'
+    | '/account'
     | '/protected'
-    | '/auth/confirm'
+    | '/update-password'
     | '/auth/error'
+    | '/auth/success'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | ''
     | '/about'
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
-    | '/sign-up-success'
-    | '/update-password'
+    | '/'
+    | '/account'
     | '/protected'
-    | '/auth/confirm'
+    | '/update-password'
     | '/auth/error'
+    | '/auth/success'
   id:
     | '__root__'
-    | '/'
-    | '/_protected'
-    | '/about'
-    | '/forgot-password'
-    | '/sign-in'
-    | '/sign-up'
-    | '/sign-up-success'
-    | '/update-password'
-    | '/_protected/protected'
-    | '/auth/confirm'
-    | '/auth/error'
+    | '/_app'
+    | '/_app/_protected'
+    | '/_app/about'
+    | '/_app/forgot-password'
+    | '/_app/sign-in'
+    | '/_app/sign-up'
+    | '/_app/'
+    | '/_app/_protected/account'
+    | '/_app/_protected/protected'
+    | '/_app/_protected/update-password'
+    | '/_app/auth/error'
+    | '/_app/auth/success'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProtectedRoute: typeof ProtectedRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  ForgotPasswordRoute: typeof ForgotPasswordRoute
-  SignInRoute: typeof SignInRoute
-  SignUpRoute: typeof SignUpRoute
-  SignUpSuccessRoute: typeof SignUpSuccessRoute
-  UpdatePasswordRoute: typeof UpdatePasswordRoute
-  AuthConfirmRoute: typeof AuthConfirmRoute
-  AuthErrorRoute: typeof AuthErrorRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ProtectedRoute: ProtectedRouteWithChildren,
-  AboutRoute: AboutRoute,
-  ForgotPasswordRoute: ForgotPasswordRoute,
-  SignInRoute: SignInRoute,
-  SignUpRoute: SignUpRoute,
-  SignUpSuccessRoute: SignUpSuccessRoute,
-  UpdatePasswordRoute: UpdatePasswordRoute,
-  AuthConfirmRoute: AuthConfirmRoute,
-  AuthErrorRoute: AuthErrorRoute,
+  AppRoute: AppRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -310,54 +337,70 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/_protected",
-        "/about",
-        "/forgot-password",
-        "/sign-in",
-        "/sign-up",
-        "/sign-up-success",
-        "/update-password",
-        "/auth/confirm",
-        "/auth/error"
+        "/_app"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/_protected": {
-      "filePath": "_protected.tsx",
+    "/_app": {
+      "filePath": "_app.tsx",
       "children": [
-        "/_protected/protected"
+        "/_app/_protected",
+        "/_app/about",
+        "/_app/forgot-password",
+        "/_app/sign-in",
+        "/_app/sign-up",
+        "/_app/",
+        "/_app/auth/error",
+        "/_app/auth/success"
       ]
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/_app/_protected": {
+      "filePath": "_app/_protected.tsx",
+      "parent": "/_app",
+      "children": [
+        "/_app/_protected/account",
+        "/_app/_protected/protected",
+        "/_app/_protected/update-password"
+      ]
     },
-    "/forgot-password": {
-      "filePath": "forgot-password.tsx"
+    "/_app/about": {
+      "filePath": "_app/about.tsx",
+      "parent": "/_app"
     },
-    "/sign-in": {
-      "filePath": "sign-in.tsx"
+    "/_app/forgot-password": {
+      "filePath": "_app/forgot-password.tsx",
+      "parent": "/_app"
     },
-    "/sign-up": {
-      "filePath": "sign-up.tsx"
+    "/_app/sign-in": {
+      "filePath": "_app/sign-in.tsx",
+      "parent": "/_app"
     },
-    "/sign-up-success": {
-      "filePath": "sign-up-success.tsx"
+    "/_app/sign-up": {
+      "filePath": "_app/sign-up.tsx",
+      "parent": "/_app"
     },
-    "/update-password": {
-      "filePath": "update-password.tsx"
+    "/_app/": {
+      "filePath": "_app/index.tsx",
+      "parent": "/_app"
     },
-    "/_protected/protected": {
-      "filePath": "_protected/protected.tsx",
-      "parent": "/_protected"
+    "/_app/_protected/account": {
+      "filePath": "_app/_protected/account.tsx",
+      "parent": "/_app/_protected"
     },
-    "/auth/confirm": {
-      "filePath": "auth/confirm.ts"
+    "/_app/_protected/protected": {
+      "filePath": "_app/_protected/protected.tsx",
+      "parent": "/_app/_protected"
     },
-    "/auth/error": {
-      "filePath": "auth/error.tsx"
+    "/_app/_protected/update-password": {
+      "filePath": "_app/_protected/update-password.tsx",
+      "parent": "/_app/_protected"
+    },
+    "/_app/auth/error": {
+      "filePath": "_app/auth/error.tsx",
+      "parent": "/_app"
+    },
+    "/_app/auth/success": {
+      "filePath": "_app/auth/success.tsx",
+      "parent": "/_app"
     }
   }
 }
