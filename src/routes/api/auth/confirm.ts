@@ -13,8 +13,7 @@ export const APIRoute = createAPIFileRoute('/api/auth/confirm')({
     if (
       typeof token_hash !== 'string' ||
       typeof type !== 'string' ||
-      typeof next !== 'string' ||
-      !next.startsWith('/')
+      typeof next !== 'string'
     ) {
       return new Response(null, {
         status: 302,
